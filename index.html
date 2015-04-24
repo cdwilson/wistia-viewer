@@ -2,27 +2,35 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Wistia-viewer by cdwilson</title>
+    <title>Wistia Viewer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/video.css" media="screen">
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Wistia-viewer</h1>
-      <h2 class="project-tagline">Wistia viewer enabling HD playback, download, and social media functionality</h2>
+      <h1 class="project-name">Wistia Viewer</h1>
+      <h2 class="project-tagline">Wistia viewer enabling 720p HD playback, downloads, and social media links</h2>
+      <div id="wistia_video" class="wistia_embed" style="height:748px;width:1280px">
+        you should not see this text! javascript is disabled!
+      </div>
       <a href="https://github.com/cdwilson/wistia-viewer" class="btn">View on GitHub</a>
-      <a href="https://github.com/cdwilson/wistia-viewer/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/cdwilson/wistia-viewer/tarball/master" class="btn">Download .tar.gz</a>
+
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="wistia-viewer" class="anchor" href="#wistia-viewer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wistia Viewer</h3>
+        <h3>
+          <a id="wistia-viewer" class="anchor" href="#change-video" aria-hidden="true"><span class="octicon octicon-link"></span></a>Change Video</h3>
 
-<p>This viewer defaults to 1280px wide by 720px tall for watching Wistia videos in 720p HD (currently the highest supported resolution).  It also enables download and social media links, and enables the "doNotTrack" option so you aren't tracked while using this viewer.</p>
+        <p>
+          <form name="embedIDInputForm" onSubmit="validateForm(); return false;">
+            Wistia iFrame Embed ID:&nbsp<input type="text" name="embedID" value="">&nbsp<input type="submit" value="Update">
+          </form>
+        </p>
+
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/cdwilson/wistia-viewer">Wistia-viewer</a> is maintained by <a href="https://github.com/cdwilson">cdwilson</a>.</span>
@@ -32,7 +40,40 @@
 
     </section>
 
-  
+    <script charset="ISO-8859-1" src="http://fast.wistia.net/static/E-v1.js"></script>
+    <script>
+      // set default video ID
+      defaultID = "e4a27b971d";
+
+      function updateEmbed(embedID) {
+        // update wistiaEmbed
+        wistiaEmbed = Wistia.embed(embedID, {
+          doNotTrack: true,
+          videoQuality: "hd-only",
+          container: "wistia_video",
+          plugin: {
+            "socialbar-v1": {
+              buttons: "playCount-embed-download-twitter-facebook",
+              downloadType: "original"
+            }
+          }
+        });
+
+        // update form text input to match embedID
+        document.embedIDInputForm.embedID.value = defaultID;
+      }
+
+      function validateForm() {
+        var embedID = document.embedIDInputForm.embedID.value;
+        if (embedID == null || embedID == "") {
+            alert("Please enter the video embed ID");
+            return false;
+        }
+        updateEmbed(embedID);
+      }
+
+      // display default video on page load
+      updateEmbed(defaultID);
+    </script>
   </body>
 </html>
-
