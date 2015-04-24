@@ -8,17 +8,16 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/video.css" media="screen">
   </head>
   <body>
     <section class="page-header">
       <h1 class="project-name">Wistia Viewer</h1>
-      <h2 class="project-tagline">Wistia viewer enabling 720p HD playback, downloads, and social media links</h2>
-      <div id="wistia_video" class="wistia_embed" style="height:748px;width:1280px">
-        you should not see this text! javascript is disabled!
-      </div>
-
+      <h2 class="project-tagline">Wistia viewer enabling responsive playback, downloads, and social media links</h2>
     </section>
+
+    <div id="wistia_video" class="wistia_embed">
+      you should not see this text! javascript is disabled!
+    </div>
 
     <section class="main-content">
         <h3>
@@ -48,8 +47,9 @@
         // update wistiaEmbed
         wistiaEmbed = Wistia.embed(embedID, {
           doNotTrack: true,
-          videoQuality: "hd-only",
+          videoQuality: "auto",
           container: "wistia_video",
+          videoFoam: true,
           plugin: {
             "socialbar-v1": {
               buttons: "playCount-embed-download-twitter-facebook",
